@@ -208,6 +208,7 @@ resource "aws_ecs_task_definition" "this" {
   container_definitions = jsonencode(
     flatten(
       concat(
+        var.additional_container_definitions,
         [
           local.finalized_mesh_init_container_definition,
           {
@@ -329,6 +330,18 @@ resource "aws_ecs_service" "this" {
   launch_type            = var.launch_type
   propagate_tags         = "TASK_DEFINITION"
   enable_execute_command = true
+
+  deployment_minimum_healthy_percent = 100
+  deployment_maximum_percent = 200
+
+  deployment_circuit_breaker {
+    enable   = true
+    rollback = true
+  }
+
+  lifecycle {
+    ignore_changes = [desired_count]
+  }
 }
 
 resource "aws_lb" "this" {

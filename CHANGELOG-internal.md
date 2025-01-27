@@ -2,7 +2,10 @@
 
 ### Changed
 
-* [PET-4109] Allow gateway task to use internal consul ECR
+* [PET-4109]
+  * Allow gateway task to use internal consul ECR
+  * Ensure 100 min healthy percent
+  * Ignore desired count
 
 ### Fixed
 
