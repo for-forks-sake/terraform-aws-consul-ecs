@@ -6,6 +6,7 @@
   * Allow gateway task to use internal consul ECR
   * Ensure 100 min healthy percent
   * Ignore desired count
+* [PET-TODO] Use consul-ecs v0.9.0 to fix health check bug.
 
 ### Fixed
 

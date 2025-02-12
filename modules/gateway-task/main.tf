@@ -332,7 +332,7 @@ resource "aws_ecs_service" "this" {
   enable_execute_command = true
 
   deployment_minimum_healthy_percent = 100
-  deployment_maximum_percent = 200
+  deployment_maximum_percent         = 200
 
   deployment_circuit_breaker {
     enable   = true
