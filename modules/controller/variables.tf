@@ -11,7 +11,7 @@ variable "consul_ecs_image" {
   default     = "hashicorp/consul-ecs:0.8.1"
 }
 
-variable "count" {
+variable "desired_count" {
   default = 1
   description = "Number of controller tasks to run."
   type        = number
