@@ -10,7 +10,7 @@ resource "aws_ecs_service" "this" {
   name            = var.alternate_name
   cluster         = var.ecs_cluster_arn
   task_definition = aws_ecs_task_definition.this.arn
-  desired_count   = var.count
+  desired_count   = var.desired_count
   network_configuration {
     subnets          = var.subnets
     security_groups  = var.security_groups
