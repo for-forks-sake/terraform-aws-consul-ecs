@@ -1,3 +1,11 @@
+## v0.8.0-internal-0.2.0
+
+### Changed
+
+* [PET-4346]
+  * controller - extend usage of var.name_prefix to ecs service name
+  * controller - allow configuration of ecs desired count.
+
 ## v0.8.0-internal-0.1.0
 
 ### Changed

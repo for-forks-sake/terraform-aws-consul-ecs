@@ -1,10 +1,15 @@
 # Copyright (c) HashiCorp, Inc.
 # SPDX-License-Identifier: MPL-2.0
-
 variable "consul_ecs_image" {
   description = "consul-ecs Docker image."
   type        = string
   default     = "hashicorp/consul-ecs:0.8.1"
+}
+
+variable "desired_count" {
+  default = 1
+  description = "Number of controller tasks to run."
+  type        = number
 }
 
 variable "ecs_cluster_arn" {
