@@ -244,7 +244,13 @@ resource "aws_ecs_task_definition" "this" {
             }
             cpu         = 0
             volumesFrom = []
-            environment = []
+            environment = [],
+            linuxParameters = {
+              initProcessEnabled = true
+              capabilities = {
+                add  = var.lan_port == 443 ? ["NET_BIND_SERVICE"] : []
+                drop = []
+            } }
             ulimits = [{
               name = "nofile"
               // Note: 2^20 (1048576) is the maximum.
