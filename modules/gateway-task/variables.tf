@@ -435,3 +435,9 @@ variable "exclude_uids" {
   type        = list(string)
   default     = []
 }
+
+variable "run_consul_dataplane_previledge_mode" {
+  description = "Run consul-dataplane binary with elevated previledges so it can bind to privledge ports."
+  type        = bool
+  default     = false
+}

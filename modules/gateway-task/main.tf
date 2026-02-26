@@ -110,6 +110,8 @@ locals {
   # container with root access.
   additional_user_attr                     = var.enable_transparent_proxy ? { user = "0" } : {}
   finalized_mesh_init_container_definition = merge(local.mesh_init_container_definition, local.additional_user_attr)
+
+  consul_dataplane_binary = var.run_consul_dataplane_previledge_mode ? "privileged-consul-dataplane" : "consul-dataplane"
 }
 
 resource "aws_ecs_task_definition" "this" {
@@ -218,7 +220,7 @@ resource "aws_ecs_task_definition" "this" {
             user             = "5995"
             logConfiguration = var.log_configuration
             entryPoint       = ["/consul/consul-ecs", "envoy-entrypoint"]
-            command          = ["consul-dataplane", "-config-file", "/consul/consul-dataplane.json"] # consul-ecs-mesh-init dumps the dataplane's config into consul-dataplane.json
+            command          = [local.consul_dataplane_binary, "-config-file", "/consul/consul-dataplane.json"] # consul-ecs-mesh-init dumps the dataplane's config into consul-dataplane.json
             portMappings = [
               {
                 containerPort = local.lan_port
@@ -244,13 +246,7 @@ resource "aws_ecs_task_definition" "this" {
             }
             cpu         = 0
             volumesFrom = []
-            environment = [],
-            linuxParameters = {
-              initProcessEnabled = true
-              capabilities = {
-                add  = var.lan_port == 443 ? ["NET_BIND_SERVICE"] : []
-                drop = []
-            } }
+            environment = []
             ulimits = [{
               name = "nofile"
               // Note: 2^20 (1048576) is the maximum.
