@@ -435,3 +435,13 @@ variable "exclude_uids" {
   type        = list(string)
   default     = []
 }
+
+variable "extra_port_mappings" {
+  description = "Additional port mappings for the consul-dataplane container."
+  type = list(object({
+    containerPort = number
+    hostPort      = number
+    protocol      = optional(string, "tcp")
+  }))
+  default = []
+}

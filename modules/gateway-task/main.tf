@@ -219,13 +219,16 @@ resource "aws_ecs_task_definition" "this" {
             logConfiguration = var.log_configuration
             entryPoint       = ["/consul/consul-ecs", "envoy-entrypoint"]
             command          = ["consul-dataplane", "-config-file", "/consul/consul-dataplane.json"] # consul-ecs-mesh-init dumps the dataplane's config into consul-dataplane.json
-            portMappings = [
-              {
-                containerPort = local.lan_port
-                hostPort      = local.lan_port
-                protocol      = "tcp"
-              }
-            ]
+            portMappings = concat(
+              [
+                {
+                  containerPort = local.lan_port
+                  hostPort      = local.lan_port
+                  protocol      = "tcp"
+                }
+              ],
+              var.extra_port_mappings
+            )
             mountPoints = concat(
               [local.consul_data_mount],
               local.mount_points
