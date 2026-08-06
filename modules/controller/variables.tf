@@ -1,10 +1,15 @@
 # Copyright IBM Corp. 2021, 2026
 # SPDX-License-Identifier: MPL-2.0
-
 variable "consul_ecs_image" {
   description = "consul-ecs Docker image."
   type        = string
   default     = "public.ecr.aws/hashicorp/consul-ecs:0.10.0"
+}
+
+variable "desired_count" {
+  default     = 1
+  description = "Number of controller tasks to run."
+  type        = number
 }
 
 variable "ecs_cluster_arn" {
