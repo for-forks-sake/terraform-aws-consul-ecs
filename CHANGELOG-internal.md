@@ -1,3 +1,9 @@
+## v0.10.0-internal-0.1.1
+
+### Fixed
+
+- PET-5049: Make possible to enable passive health checks.
+
 ## v0.10.0-internal-0.1.0
 
 ### Changed
